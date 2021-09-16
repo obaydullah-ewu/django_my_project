@@ -9,6 +9,7 @@ from App_Login.models import UserProfile
 
 # Create your views here.
 
+
 def sign_up(request):
     form = CreateNewUser()
     registered = False
@@ -37,6 +38,7 @@ def login_page(request):
                 return HttpResponseRedirect(reverse('App_Dashboard:home'))
     return render(request, 'App_Login/login.html', context={'title': 'Login', 'form': form})
 
+
 @login_required
 def edit_profile(request):
     current_user = UserProfile.objects.get(user=request.user)
@@ -50,10 +52,12 @@ def edit_profile(request):
             return HttpResponseRedirect(reverse('App_Login:profile'))
     return render(request, 'App_Login/edit-profile.html', context={'title': 'Edit Profile', 'form': form})
 
+
 @login_required
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('App_Login:login'))
+
 
 @login_required
 def profile(request):
