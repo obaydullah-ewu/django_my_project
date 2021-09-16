@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <title>{% block title_block %} {% endblock %} / My Project</title>
       <style>
           {% block css_block %}
@@ -19,8 +19,15 @@
   <nav class="navbar navbar-expand-sm bg-light navbar-light">
       <ul class="navbar-nav">
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'App_Dashboard:home' %}">Home</a>
+              <a class="nav-link" href="{% url 'App_Dashboard:home' %}">Dashboard</a>
           </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'App_Dashboard:country' %}">Country</a>
+          </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'App_Dashboard:add_country' %}">Add Country</a>
+            </li>
+
           <li class="nav-item ">
               <a class="nav-link" href="{% url 'App_Login:logout' %}">Logout</a>
           </li>
