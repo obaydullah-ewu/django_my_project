@@ -1,0 +1,17 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{ title }} {% endblock %}
+
+{% block css_block %}
+
+{% endblock %}
+{% block body_block %}
+    <form method="post" enctype="multipart/form-data">
+        {% if user.user_profile.profile_pic %}
+            <img src="/media/{{ user.user_profile.profile_pic }}" alt="" width="100px" height="100px" class="img-responsive">
+        {% endif %}
+        {{ form|crispy }}
+        {% csrf_token %}
+    <button type="submit" name="button" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
