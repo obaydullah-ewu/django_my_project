@@ -17,6 +17,8 @@
 {% block body_block %}
     <center>
     <div class="log_in">
+        <h2>Log In</h2>
+        <hr>
         <form method="post">
             {{ form|crispy }}
             {% csrf_token %}
