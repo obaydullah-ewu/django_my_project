@@ -35,8 +35,8 @@
                 {% endif %}
             </td>
             <td>
-                <a href="{% url 'App_Dashboard:edit_country' country_id=country.id %}"><i class="fas fa-edit mr-1"></i></a>
-                <a href="{% url 'App_Dashboard:delete_country' country_id=country.id %}"><i class="fas fa-trash ml-1"></i></a>
+                <a href="{% url 'App_Dashboard:edit_country' country_id=country.id %}"><i class="fas fa-edit mr-1">Edit</i></a>
+                <a href="{% url 'App_Dashboard:delete_country' country_id=country.id %}"><i class="fas fa-trash ml-1">Delete</i></a>
             </td>
         </tr>
     {% endfor %}

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -41,7 +42,11 @@ def login_page(request):
 
 @login_required
 def edit_profile(request):
-    print(request.user)
+
+    if request.user.is_superuser:
+        messages.error(request, 'You are a superuser')
+        return HttpResponseRedirect(reverse('App_Login:profile'))
+
     current_user = UserProfile.objects.get(user=request.user)
     form = EditProfile(instance=current_user)
     print(form)
@@ -50,6 +55,7 @@ def edit_profile(request):
         if form.is_valid():
             form.save(commit=True)
             form = EditProfile(instance=current_user)
+            messages.success(request, 'Profile Updated')
             return HttpResponseRedirect(reverse('App_Login:profile'))
     return render(request, 'App_Login/edit-profile.html', context={'title': 'Edit Profile', 'form': form})
 
@@ -64,6 +70,8 @@ def logout_user(request):
 def profile(request):
     return render(request, 'App_Login/user.html', context={'title': 'Profile'})
 
+
+@login_required
 def users(request):
     users = User.objects.all()
     print(users)

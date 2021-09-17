@@ -1,0 +1,44 @@
+{% extends 'navbar.html' %}
+{% block title_block %} {{ title }} {% endblock %}
+
+{% block css_block %}
+
+{% endblock %}
+
+{% block body_block %}
+<table class="table table-hover">
+    <thead>
+    <tr><th colspan="8" class="text-center"><h3>Taxi Companies List</h3></th></tr>
+    <tr>
+        <th>SL.</th>
+        <th>Logo</th>
+        <th>Country</th>
+        <th>Company Details</th>
+        <th>URL</th>
+        <th>Address</th>
+        <th>STATUS</th>
+        <th >Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for taxi in taxi_companies %}
+    <tr>
+        <td>{{ forloop.counter }} </td>
+
+        <td><img src="/media/{{ taxi.logo }}" width="100px" height="100px" class="rounded-circle" alt=""></td>
+        <td>{{ taxi.country.name }}</td>
+        <td>{{ taxi.company_details }}</td>
+        <td>{{ taxi.url }}</td>
+        <td>{{ taxi.address }}</td>
+        <td>{{ taxi.status }}</td>
+        <td>
+            <a href="{% url 'App_Dashboard:edit_taxi_company' taxi_id=taxi.id %}"><i class="fas fa-edit mr-1">Edit</i></a>
+            <a href="{% url 'App_Dashboard:delete_taxi_company' taxi_id=taxi.id %}"><i class="fas fa-trash ml-1">Delete</i></a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

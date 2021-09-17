@@ -19,3 +19,19 @@ class Country(models.Model):
         return self.name
 
 
+class TaxiCompany(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE, default=None, related_name='country_info')
+    logo = models.ImageField(upload_to='profile_pics', blank=True)
+    company_details = models.CharField(max_length=264)
+    url = models.CharField(max_length=264)
+    address = models.CharField(max_length=264)
+    status_ = (
+        (1, "Active"),
+        (2, "Deactivate")
+    )
+    status = models.IntegerField(choices=status_)
+
+    def __str__(self):
+        return self.country.name
+
+
