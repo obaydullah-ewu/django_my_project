@@ -41,6 +41,7 @@ def login_page(request):
 
 @login_required
 def edit_profile(request):
+    print(request.user)
     current_user = UserProfile.objects.get(user=request.user)
     form = EditProfile(instance=current_user)
     print(form)
@@ -62,3 +63,12 @@ def logout_user(request):
 @login_required
 def profile(request):
     return render(request, 'App_Login/user.html', context={'title': 'Profile'})
+
+def users(request):
+    users = User.objects.all()
+    print(users)
+    diction = {
+        'title': 'User List',
+        'users': users
+    }
+    return render(request, "App_Login/users.html", context=diction)

@@ -11,18 +11,18 @@
         <a href="{% url 'App_Dashboard:country' %}">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Country</h5>
+                    <h5 class="card-title"><i class="fas fa-flag"> Total Country</i></h5>
                     <h2 class="text-right">{{  country_list.count }}</h2>
                 </div>
             </div>
         </a>
     </div>
     <div class="col-sm-4">
-        <a href="{% url 'App_Dashboard:country' %}">
+        <a href="{% url 'App_Login:users' %}">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Country</h5>
-                    <h2 class="text-right">{{  country_list.count }}</h2>
+                    <h5 class="card-title"><i class="fas fa-users"> Total User</i></h5>
+                    <h2 class="text-right">{{  users.count }}</h2>
                 </div>
             </div>
         </a>

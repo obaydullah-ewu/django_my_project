@@ -26,7 +26,7 @@
             <td>{{ country.name }}</td>
             <td>{{ country.isd_code }}</td>
             <td>{{ country.currency }}</td>
-            <td>{{ country.phone }}</td>
+            <td>{{ country.phone_digit }}</td>
             <td>
                 {% if country.status == 1 %}
                     Active
@@ -35,8 +35,8 @@
                 {% endif %}
             </td>
             <td>
-                <a href=""><i class="fas fa-edit mr-1"></i></a>
-                <a href=""><i class="fas fa-trash ml-1"></i></a>
+                <a href="{% url 'App_Dashboard:edit_country' country_id=country.id %}"><i class="fas fa-edit mr-1"></i></a>
+                <a href="{% url 'App_Dashboard:delete_country' country_id=country.id %}"><i class="fas fa-trash ml-1"></i></a>
             </td>
         </tr>
     {% endfor %}
