@@ -8,28 +8,34 @@
 {% block body_block %}
 <div class="row">
     <div class="col-sm-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Country</h5>
-        <h2 class="text-right">{{  country_list.count }}</h2>
-      </div>
-    </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Country</h5>
-            <h2 class="text-right">89</h2>
-          </div>
-        </div>
+        <a href="{% url 'App_Dashboard:country' %}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Country</h5>
+                    <h2 class="text-right">{{  country_list.count }}</h2>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="col-sm-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Country</h5>
-            <h2 class="text-right">89</h2>
-          </div>
-        </div>
+        <a href="{% url 'App_Dashboard:country' %}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Country</h5>
+                    <h2 class="text-right">{{  country_list.count }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-4">
+        <a href="{% url 'App_Dashboard:country' %}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Country</h5>
+                    <h2 class="text-right">{{  country_list.count }}</h2>
+                </div>
+            </div>
+        </a>
     </div>
 
 </div>
