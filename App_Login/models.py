@@ -9,3 +9,6 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
     full_name = models.CharField(max_length=264, blank=True)
     dob = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        return self.full_name

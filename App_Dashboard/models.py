@@ -7,7 +7,7 @@ class Country(models.Model):
     name = models.CharField(max_length=50)
     isd_code = models.CharField(max_length=20)
     currency = models.CharField(max_length=20)
-    phone = models.CharField(max_length=20)
+    phone_digit = models.CharField(max_length=20)
     status_ = (
         (1, "Active"),
         (2, "Deactivate")
