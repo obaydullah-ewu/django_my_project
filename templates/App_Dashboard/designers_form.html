@@ -3,20 +3,20 @@
 {% block title_block %} {{ title }} {% endblock %}
 
 {% block css_block %}
-.country {
-width: 550px;
-border: 1px solid #ccc;
-padding: 25px;
-}
+    .country {
+        width: 550px;
+        border: 1px solid #ccc;
+        padding: 25px;
+    }
 {% endblock %}
 
 {% block body_block %}
 <center>
     <div class="country">
-        <h3>Add Taxi Company</h3>
+        <h3>Add Designer Info</h3>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ taxi_form|crispy }}
+            {{ designer_info_form|crispy }}
             <br>
             <input type="submit" value="Add" name="submit" class="btn btn-primary" style="width: 100%">
         </form>

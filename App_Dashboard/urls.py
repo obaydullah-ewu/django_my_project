@@ -9,8 +9,8 @@ urlpatterns = [
     path('add_country/', views.country_form, name="add_country"),
     path('edit_country/<int:country_id>/', views.edit_country, name="edit_country"),
     path('delete_country/<int:country_id>/', views.delete_country, name="delete_country"),
-    path('taxi_company/', views.taxi_company, name='taxi_company'),
-    path('add_taxi_company/', views.add_taxi_company, name='add_taxi_company'),
-    path('edit_taxi_company/<int:taxi_id>/', views.edit_taxi_company, name='edit_taxi_company'),
-    path('delete_taxi_company/<int:taxi_id>/', views.delete_taxi_company, name='delete_taxi_company'),
+    path('designer_info/', views.designer_info, name='designer_info'),
+    # path('add_designer/', views.add_designer, name='add_designer'),
+    # path('edit_designer/<int:designer_id>/', views.edit_designer, name='edit_designer'),
+    # path('delete_designer/<int:designer_id>/', views.delete_designer, name='delete_designer'),
 ]

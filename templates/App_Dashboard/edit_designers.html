@@ -3,17 +3,17 @@
 {% block title_block %} {{ title }} {% endblock %}
 
 {% block css_block %}
-.country {
-width: 550px;
-border: 1px solid #ccc;
-padding: 25px;
-}
+    .country {
+    width: 550px;
+    border: 1px solid #ccc;
+    padding: 25px;
+    }
 {% endblock %}
 
 {% block body_block %}
 <center>
     <div class="country">
-        <h3>Edit Taxi Company</h3>
+        <h3>Edit Designer Info</h3>
         <form method="post" class="form-control">
             {% csrf_token %}
             {{ edit_form|crispy }}

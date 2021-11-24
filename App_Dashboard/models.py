@@ -19,19 +19,18 @@ class Country(models.Model):
         return self.name
 
 
-class TaxiCompany(models.Model):
+class DesignerInfo(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE, default=None, related_name='country_info')
-    logo = models.ImageField(upload_to='profile_pics', blank=True)
-    company_details = models.CharField(max_length=264)
-    url = models.CharField(max_length=264)
-    address = models.CharField(max_length=264)
+    name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='profile_pics', blank=True)
+    email = models.CharField(max_length=20)
+    contact = models.CharField(max_length=20)
     status_ = (
         (1, "Active"),
         (2, "Deactivate")
     )
     status = models.IntegerField(choices=status_)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.country.name
-
-
+        return self.name

@@ -1,5 +1,5 @@
 from django import forms
-from App_Dashboard.models import Country, TaxiCompany
+from App_Dashboard.models import Country, DesignerInfo
 
 
 class CountryForm(forms.ModelForm):
@@ -8,7 +8,7 @@ class CountryForm(forms.ModelForm):
         fields = '__all__'
 
 
-class TaxiCompanyForm(forms.ModelForm):
+class DesignerInfoForm(forms.ModelForm):
     class Meta:
-        model = TaxiCompany
+        model = DesignerInfo
         fields = '__all__'
