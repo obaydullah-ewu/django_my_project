@@ -31,7 +31,11 @@
         <td>{{ designer.email }}</td>
         <td>{{ designer.contact }}</td>
         <td>
-            {{ designer.status }}
+            {% if designer.status == 1 %}
+            Active
+            {% elif designer.status == 2 %}
+            Deactivate
+            {% endif %}
         </td>
         <td>
             <a href="{% url 'App_Dashboard:edit_designer' designer_id=designer.id %}"><i class="fas fa-edit mr-1">Edit</i></a>
