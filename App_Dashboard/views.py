@@ -13,12 +13,12 @@ from App_Dashboard.models import Country, DesignerInfo
 def home(request):
     country_list = Country.objects.all()
     users = User.objects.all()
-    # designers = DesignerInfo.objects.all()
+    designers = DesignerInfo.objects.all()
     diction = {
         'title': 'Dashboard',
         'country_list': country_list,
         'users': users,
-        # 'designers': designers
+        'designers': designers
     }
     return render(request, "App_Dashboard/home.html", context=diction)
 
@@ -86,43 +86,51 @@ def designer_info(request):
     return render(request, "App_Dashboard/designers_list.html", context=diction)
 
 
-# @login_required
-# def add_designer(request):
-#     form = forms.DesignerInfoForm()
-#
-#     if request.method == 'POST':
-#         form = forms.DesignerInfoForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save(commit=True)
-#             messages.success(request, 'Designer Info Added Successfully')
-#             return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
-#     diction = {
-#         'title': "Add Designer Info",
-#         'designer_info_form': form
-#     }
-#     return render(request, "App_Dashboard/designers_form.html", context=diction)
+@login_required
+def add_designer(request):
+    form = forms.DesignerInfoForm()
+
+    if request.method == 'POST':
+        form = forms.DesignerInfoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(commit=True)
+            messages.success(request, 'Designer Info Added Successfully')
+            return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
+    diction = {
+        'title': "Add Designer Info",
+        'designer_info_form': form
+    }
+    return render(request, "App_Dashboard/designers_form.html", context=diction)
+
+@login_required
+def view_designer(request, designer_id):
+    designer = DesignerInfo.objects.get(pk=designer_id)
+    diction = {
+        'title' : 'Designer Details',
+        'designer': designer
+    }
+    return render(request, 'App_Dashboard/view_designers.html', context=diction)
+
+@login_required
+def edit_designer(request, designer_id):
+    designer_info = DesignerInfo.objects.get(pk=designer_id)
+    form = forms.DesignerInfoForm(instance=designer_info)
+
+    if request.method == 'POST':
+        form = forms.DesignerInfoForm(request.POST, request.FILES, instance=designer_info)
+
+        if form.is_valid():
+            form.save(commit=True)
+            messages.info(request, 'Designer Updated Successfully')
+            return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
+    diction = {
+        'edit_form': form
+    }
+    return render(request, 'App_Dashboard/edit_designers.html', context=diction)
 
 
-# @login_required
-# def edit_designer(request, designer_id):
-#     designer_info = DesignerInfo.objects.get(pk=designer_id)
-#     form = forms.DesignerInfoForm(instance=designer_info)
-#
-#     if request.method == 'POST':
-#         form = forms.DesignerInfoForm(request.POST, request.FILES, instance=designer_info)
-#
-#         if form.is_valid():
-#             form.save(commit=True)
-#             messages.info(request, 'Designer Updated Successfully')
-#             return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
-#     diction = {
-#         'edit_form': form
-#     }
-#     return render(request, 'App_Dashboard/edit_designer.html', context=diction)
-#
-#
-# @login_required
-# def delete_designer(request, designer_id):
-#     DesignerInfo.objects.get(pk=designer_id).delete()
-#     messages.success(request, 'Designer Deleted Successfully')
-#     return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
+@login_required
+def delete_designer(request, designer_id):
+    DesignerInfo.objects.get(pk=designer_id).delete()
+    messages.success(request, 'Designer Deleted Successfully')
+    return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))

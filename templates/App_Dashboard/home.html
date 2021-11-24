@@ -27,8 +27,33 @@
             </div>
         </a>
     </div>
-<!--    -->
+    <div class="col-sm-4">
+        <a href="{% url 'App_Dashboard:designer_info' %}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Designer</h5>
+                    <h2 class="text-right">{{  designers.count }}</h2>
+                </div>
+            </div>
+        </a>
+    </div>
 
+</div>
+
+<div class="row mt-5">
+    {% for designer in designers %}
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="/media/{{ designer.image }}" width="150px" height="150px" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ designer.name }}</h5>
+                <p class="card-text">{{ designer.email }}</p>
+                <p class="card-text">{{ designer.contact }}</p>
+                <a href="{% url 'App_Dashboard:view_designer' designer_id=designer.id %}" class="btn btn-primary">Go for Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 
 {% endblock %}

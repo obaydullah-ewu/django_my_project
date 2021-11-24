@@ -1,0 +1,34 @@
+{% extends 'navbar.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{ title }} {% endblock %}
+
+{% block css_block %}
+.country {
+width: 550px;
+border: 1px solid #ccc;
+padding: 25px;
+}
+{% endblock %}
+
+{% block body_block %}
+<center>
+    <div class="country">
+        <h3>Designer Details</h3>
+        <img src="/media/{{ designer.image }}" width="150px" height="150" class="rounded-circle" alt="">
+        <table>
+            <tr>
+                <th>Name: </th>
+                <td>{{ designer.name}}</td>
+            </tr>
+            <tr>
+                <th>Country: </th>
+                <td>{{ designer.country.name}}</td>
+            </tr>
+        </table>
+
+    </div>
+</center>
+
+
+
+{% endblock %}
