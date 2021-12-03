@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
 from App_Login.forms import CreateNewUser, EditProfile
 from django.contrib.auth import authenticate, login, logout
@@ -15,12 +16,20 @@ def sign_up(request):
     form = CreateNewUser()
     registered = False
     if request.method == 'POST':
+        print(list(request.POST.items()))
         form = CreateNewUser(data=request.POST)
         if form.is_valid():
-            user = form.save()
+            email = request.POST['email']
+            username = request.POST['username']
+            password = request.POST['password1']
+            user = User.objects.create_user(username=username, password=password, email=email)
+            user.save()
             registered = True
-            user_profile = UserProfile(user=user)
-            user_profile.save()
+            data_dict = {
+                'user_id': user.id,
+                'type': request.POST['type'],
+            }
+            UserProfile.objects.create(**data_dict)
             return HttpResponseRedirect(reverse('App_Login:login'))
 
     return render(request, 'App_Login/sign_up.html', context={'title': 'Sign Up', 'form': form})
