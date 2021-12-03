@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from App_Dashboard import views
 
+admin.site.site_header = 'My admin'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('App_Login.urls')),
