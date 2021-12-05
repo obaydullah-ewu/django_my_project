@@ -1,4 +1,4 @@
-{% extends 'navbar.html' %}
+{% extends 'base.html' %}
 {% block title_block %} {{  title }} {% endblock %}
 
 {% block css_block %}
@@ -7,6 +7,7 @@
 
 
 {% block body_block %}
+{% load crispy_forms_tags %}
 <div class="container">
     <table class="table table-hover">
         <thead>

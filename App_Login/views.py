@@ -4,6 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
+
+from App_Dashboard.forms import PostForm
+from App_Dashboard.models import Post
 from App_Login.forms import CreateNewUser, EditProfile
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse, reverse_lazy
@@ -77,8 +80,12 @@ def logout_user(request):
 
 @login_required
 def profile(request):
-    return render(request, 'App_Login/user.html', context={'title': 'Profile'})
-
+    form = PostForm()
+    diction = {
+        'title': 'User List',
+        'form': form
+    }
+    return render(request, 'App_Login/user.html', context=diction)
 
 @login_required
 def users(request):

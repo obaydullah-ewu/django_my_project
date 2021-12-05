@@ -4,10 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+      {% load static %}
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="{% static 'fontawesome/a076d05399.js' %} "></script>
     <title>{% block title_block %} {% endblock %} / My Project</title>
     <style>
         .dropBtn {
@@ -55,52 +55,114 @@
       </style>
   </head>
   <body>
-  <nav class="navbar navbar-expand-sm bg-light navbar-light">
-      <ul class="navbar-nav">
-          <li class="nav-item active">
-              <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:home' %}">Dashboard</a>
-          </li>
-          <li class="menu-item">
+
+<!--  <div class="container mt-3">-->
+      <div class="d-flex mb-3 " style="background-color: #0a4275;">
+          <div class="p-2  "> <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:home' %}">Dashboard</a></div>
+          <div class="p-2 ">
               <div class="dropdown">
                   <button class="dropBtn" style="font-weight: bold;">Country <i class="fas fa-arrow-down"></i></button>
                   <div class="dropdown-content" >
-                      <a class="dropdown-item" style="font-weight: bold; background-color: pink" href="{% url 'App_Dashboard:country' %}">Country List</a>
+                      <a class="dropdown-item" style="font-weight: bold; background-color: white" href="{% url 'App_Dashboard:country' %}">Country List</a>
                       <span></span>
-                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: black;" href="{% url 'App_Dashboard:add_country' %}">Add Country</a>
+                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_country' %}">Add Country</a>
                   </div>
               </div>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}">User List</a>
-          </li>
-
-          <li class="menu-item">
+          </div>
+          <div class="p-2 "><a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}">User List</a></div>
+          <div class="p-2 ">
               <div class="dropdown">
                   <button class="dropBtn" style="font-weight: bold;">Designer Info <i class="fas fa-arrow-down"></i></button>
                   <div class="dropdown-content" >
-                      <a class="dropdown-item" style="font-weight: bold; background-color: pink" href="{% url 'App_Dashboard:designer_info' %}">Designer Info List</a>
+                      <a class="dropdown-item" style="font-weight: bold; background-color: White" href="{% url 'App_Dashboard:designer_info' %}">Designer Info List</a>
                       <span></span>
-                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: black;" href="{% url 'App_Dashboard:add_designer' %}">Add Designer</a>
+                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_designer' %}">Add Designer</a>
                   </div>
               </div>
-          </li>
+          </div>
+          <div class="p-2">
+              <a class="nav-link dropBtn " style="font-weight: bold;" href="#contact-form">Contact Us</a>
+          </div>
+<!--          <div class="p-2 ml-auto">-->
+<!--              -->
+<!--          </div>-->
+          <div class="p-2 ml-auto d-flex">
+              {% if user.user_profile %}
+                  {% if user.user_profile.profile_pic %}
+                  <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">
+                      <div class="d-flex-row">
 
-          <li class="nav-item ">
-              <a class="nav-link dropBtn" style="font-weight: bold;" href="{% url 'App_Login:logout' %}">Logout</a>
-          </li>
-          <li class="nav-item ">
-              {% if user.user_profile.profile_pic %}
-              <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">
-                  <img src="/media/{{ user.user_profile.profile_pic }}" width="40px" height="40px" class="rounded-circle" alt="">Welcome, <b>{{ user.username }}</b></a><p class="hide">Show Profile</p>
+                          <img src="/media/{{ user.user_profile.profile_pic }}" width="40px" height="40px" class="rounded-circle" alt="">
+                          <p style="color: white">Welcome, <b>{{ user.username }}</b></p> </a>
+                        </div>
+    <!--              <p class="hide">Show Profile</p>-->
+                  {% else %}
+                  <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">
+                      <img src="/media/default.jpg" width="40px" height="40px" class="rounded-circle" alt=""><p style="color: white">Welcome, <b>{{ user.username }}</b></p> </a>
+    <!--              <p class="hide">Show Profile</p>-->
+                  {% endif %}
+                <a class="nav-link dropBtn" style="font-weight: bold;" href="{% url 'App_Login:logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
               {% else %}
-              <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">
-                  <img src="/media/default.jpg" width="40px" height="40px" class="rounded-circle" alt="">Welcome, <b>{{ user.username }}</b></a><p class="hide">Show Profile</p>
-              {% endif %}
-          </li>
-          
-      </ul>
+              <a class="nav-link dropBtn" style="font-weight: bold;" href="{% url 'App_Login:login' %}"><i class="fas fa-sign-in-alt"></i> Log In</a>
+              <a class="nav-link dropBtn" style="font-weight: bold;" href="{% url 'App_Login:sign_up' %}"><i class="fas fa-user-plus"></i> Sign Up</a>
+          {% endif %}
 
-  </nav>
+          </div>
+      </div>
+<!--  </div>-->
+
+<!--      <nav class="navbar navbar-expand-sm bg-light navbar-light">-->
+<!--          <ul class="navbar-nav">-->
+<!--              <li class="nav-item active">-->
+<!--                  <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:home' %}">Dashboard</a>-->
+<!--              </li>-->
+<!--              <li class="menu-item">-->
+<!--                  <div class="dropdown">-->
+<!--                      <button class="dropBtn" style="font-weight: bold;">Country <i class="fas fa-arrow-down"></i></button>-->
+<!--                      <div class="dropdown-content" >-->
+<!--                          <a class="dropdown-item" style="font-weight: bold; background-color: pink" href="{% url 'App_Dashboard:country' %}">Country List</a>-->
+<!--                          <span></span>-->
+<!--                          <a class="dropdown-item text-light" style="font-weight: bold; background-color: black;" href="{% url 'App_Dashboard:add_country' %}">Add Country</a>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item active">-->
+<!--                  <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}">User List</a>-->
+<!--              </li>-->
+
+<!--              <li class="menu-item">-->
+<!--                  <div class="dropdown">-->
+<!--                      <button class="dropBtn" style="font-weight: bold;">Designer Info <i class="fas fa-arrow-down"></i></button>-->
+<!--                      <div class="dropdown-content" >-->
+<!--                          <a class="dropdown-item" style="font-weight: bold; background-color: pink" href="{% url 'App_Dashboard:designer_info' %}">Designer Info List</a>-->
+<!--                          <span></span>-->
+<!--                          <a class="dropdown-item text-light" style="font-weight: bold; background-color: black;" href="{% url 'App_Dashboard:add_designer' %}">Add Designer</a>-->
+<!--                      </div>-->
+<!--                  </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item active">-->
+<!--                  <a class="nav-link dropBtn " style="font-weight: bold;" href="#contact-form">Contact Us</a>-->
+<!--              </li>-->
+
+
+<!--              <li class="nav-item ">-->
+<!--                  <a class="nav-link dropBtn" style="font-weight: bold;" href="{% url 'App_Login:logout' %}">Logout</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item ">-->
+<!--                  {% if user.user_profile.profile_pic %}-->
+<!--                  <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">-->
+<!--                      <img src="/media/{{ user.user_profile.profile_pic }}" width="40px" height="40px" class="rounded-circle" alt="">Welcome, <b>{{ user.username }}</b></a><p class="hide">Show Profile</p>-->
+<!--                  {% else %}-->
+<!--                  <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">-->
+<!--                      <img src="/media/default.jpg" width="40px" height="40px" class="rounded-circle" alt="">Welcome, <b>{{ user.username }}</b></a><p class="hide">Show Profile</p>-->
+<!--                  {% endif %}-->
+<!--              </li>-->
+
+
+<!--          </ul>-->
+
+<!--      </nav>-->
+
     <div class="" style="padding-top: 30px;">
         <div class="row">
             <div class="col">
@@ -111,6 +173,7 @@
 
         {% endblock %}
     </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

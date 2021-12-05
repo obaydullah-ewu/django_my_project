@@ -6,13 +6,16 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from App_Dashboard import forms
-from App_Dashboard.models import Country, DesignerInfo
+from App_Dashboard.forms import PostForm
+from App_Dashboard.models import Country, DesignerInfo, Post
+from App_Login.models import UserProfile
 
 
-@login_required
+# @login_required
 def home(request):
     country_list = Country.objects.all()
-    users = User.objects.all()
+    users = UserProfile.objects.filter(type=1)
+    print(users.count)
     designers = DesignerInfo.objects.all()
     diction = {
         'title': 'Dashboard',
@@ -134,3 +137,18 @@ def delete_designer(request, designer_id):
     DesignerInfo.objects.get(pk=designer_id).delete()
     messages.success(request, 'Designer Deleted Successfully')
     return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
+
+@login_required
+def post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, 'Designer Post Added Successfully')
+            return HttpResponseRedirect(reverse('App_Login:profile'))
+    diction = {
+        'title': "Profile Info",
+    }
+    return render(request, "App_Login/user.html", context=diction)

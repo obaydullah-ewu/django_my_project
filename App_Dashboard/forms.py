@@ -1,5 +1,5 @@
 from django import forms
-from App_Dashboard.models import Country, DesignerInfo
+from App_Dashboard.models import Country, DesignerInfo, Post
 
 
 class CountryForm(forms.ModelForm):
@@ -12,3 +12,9 @@ class DesignerInfoForm(forms.ModelForm):
     class Meta:
         model = DesignerInfo
         fields = '__all__'
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['image', 'description',]

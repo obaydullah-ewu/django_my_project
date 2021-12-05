@@ -1,4 +1,4 @@
-{% extends 'navbar.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block title_block %} {{ title }} {% endblock %}
 
@@ -13,7 +13,7 @@ padding: 25px;
 {% block body_block %}
 <center>
     <div class="country">
-        <h3>Designer Details</h3>
+        <h3>Designer Profile</h3>
         <img src="/media/{{ designer.image }}" width="150px" height="150" class="rounded-circle" alt="">
         <table>
             <tr>
