@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'navbar.html' %}
 {% load crispy_forms_tags %}
 {% block title_block %} {{ title }} {% endblock %}
 
@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body_block %}
-    <center>
+<center>
     <div class="country">
         <h3>Add Country</h3>
         <form method="post" class="form-control">
@@ -21,8 +21,6 @@
             <input type="submit" value="Add" name="submit" class="btn btn-primary" style="width: 100%">
         </form>
     </div>
-    </center>
-
-
-
+</center>
+{% include 'footer.html' %}
 {% endblock %}

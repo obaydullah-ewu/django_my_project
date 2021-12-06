@@ -58,30 +58,41 @@
 
 <!--  <div class="container mt-3">-->
       <div class="d-flex mb-3 " style="background-color: #0a4275;">
-          <div class="p-2  "> <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:home' %}">Dashboard</a></div>
+          <div class="p-2  "> 
+              <a class="nav-link dropBtn " style="font-weight: bold; color: Blue" href="{% url 'App_Dashboard:home' %}">
+                  <img src="/media/trendyhome.png" alt="" style="height:50px; width: auto">
+                  Trendy Homes
+              </a>
+          </div>
+          <div class="p-2  "> <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:home' %}"><i class="fas fa-home"></i> Dashboard</a></div>
+          <div class="p-2  "> <a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Dashboard:view_posts' %}"><i class="fas fa-list"></i> Design Blog Post</a></div>
           <div class="p-2 ">
               <div class="dropdown">
-                  <button class="dropBtn" style="font-weight: bold;">Country <i class="fas fa-arrow-down"></i></button>
+                  <button class="dropBtn" style="font-weight: bold;"><i class="fas fa-flag"></i> Country <i class="fas fa-arrow-down"></i></button>
                   <div class="dropdown-content" >
-                      <a class="dropdown-item" style="font-weight: bold; background-color: white" href="{% url 'App_Dashboard:country' %}">Country List</a>
+                      <a class="dropdown-item" style="font-weight: bold; background-color: white" href="{% url 'App_Dashboard:country' %}"><i class="fas fa-list"></i> Country List</a>
                       <span></span>
-                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_country' %}">Add Country</a>
+<!--                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_country' %}"><i class="fas fa-plus mr-1"></i> Add Country</a>-->
                   </div>
               </div>
           </div>
-          <div class="p-2 "><a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}">User List</a></div>
-          <div class="p-2 ">
-              <div class="dropdown">
-                  <button class="dropBtn" style="font-weight: bold;">Designer Info <i class="fas fa-arrow-down"></i></button>
-                  <div class="dropdown-content" >
-                      <a class="dropdown-item" style="font-weight: bold; background-color: White" href="{% url 'App_Dashboard:designer_info' %}">Designer Info List</a>
-                      <span></span>
-                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_designer' %}">Add Designer</a>
-                  </div>
-              </div>
+          <div class="p-2 "><a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}"><i class="fas fa-list"></i> Designer List</a></div>
+<!--          <div class="p-2 "><a class="nav-link dropBtn " style="font-weight: bold;" href="{% url 'App_Login:users' %}">User List</a></div>-->
+<!--          <div class="p-2 ">-->
+<!--              <div class="dropdown">-->
+<!--                  <button class="dropBtn" style="font-weight: bold;">Designer Info <i class="fas fa-arrow-down"></i></button>-->
+<!--                  <div class="dropdown-content" >-->
+<!--                      <a class="dropdown-item" style="font-weight: bold; background-color: White" href="{% url 'App_Dashboard:designer_info' %}"><i class="fas fa-list"></i> Designer Info List</a>-->
+<!--                      <span></span>-->
+<!--                      <a class="dropdown-item text-light" style="font-weight: bold; background-color: #0a4275;" href="{% url 'App_Dashboard:add_designer' %}"><i class="fas fa-plus mr-1"></i> Add Designer</a>-->
+<!--                  </div>-->
+<!--              </div>-->
+<!--          </div>-->
+          <div class="p-2">
+              <a class="nav-link dropBtn " style="font-weight: bold;" href="#contact-form"><i class="fas fa-id-card"></i> Contact Us</a>
           </div>
           <div class="p-2">
-              <a class="nav-link dropBtn " style="font-weight: bold;" href="#contact-form">Contact Us</a>
+              <a class="nav-link dropBtn " style="font-weight: bold;" href="#about-us"><i class="fas fa-users"></i> About Us</a>
           </div>
 <!--          <div class="p-2 ml-auto">-->
 <!--              -->
@@ -93,8 +104,9 @@
                       <div class="d-flex-row">
 
                           <img src="/media/{{ user.user_profile.profile_pic }}" width="40px" height="40px" class="rounded-circle" alt="">
-                          <p style="color: white">Welcome, <b>{{ user.username }}</b></p> </a>
+                          <p style="color: white">Welcome, <b>{{ user.username }}</b></p>
                         </div>
+                  </a>
     <!--              <p class="hide">Show Profile</p>-->
                   {% else %}
                   <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">

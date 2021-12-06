@@ -16,5 +16,12 @@ urlpatterns = [
     path('edit_designer/<int:designer_id>/', views.edit_designer, name='edit_designer'),
     path('delete_designer/<int:designer_id>/', views.delete_designer, name='delete_designer'),
 
-    path('post/', views.post, name='post')
+    path('post/', views.post, name='post'),
+    path('view_posts/', views.view_posts, name='view_posts'),
+
+    path('like_post/<int:post_id>/', views.like_post, name='like_post'),
+    path('unlike_post/<int:post_id>/', views.unlike_post, name='unlike_post'),
+
+    path('contact_us/', views.contactUs, name='contact_us'),
+    path('about_us/', views.aboutUs, name='about_us')
 ]

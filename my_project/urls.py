@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
 from App_Dashboard import views
 
-admin.site.site_header = 'My admin'
+admin.site.site_header = 'Trendy Home'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

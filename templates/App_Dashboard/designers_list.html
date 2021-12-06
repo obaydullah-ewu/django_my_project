@@ -43,6 +43,8 @@
                 <a href="{% url 'App_Dashboard:delete_designer' designer_id=designer.id %}"><i class="fas fa-trash ml-1">Delete</i></a>
             </td>
         </tr>
+        {% empty %}
+        <tr><td colspan="9"><h3 align="center">NO RECORD FOUND</h3></td></tr>
         {% endfor %}
         </tbody>
     </table>

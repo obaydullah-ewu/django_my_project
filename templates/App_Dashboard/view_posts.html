@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title_block %} {{  title }} {% endblock %}
+
+{% block css_block %}
+
+{% endblock %}
+
+{% block body_block %}
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.container {
+  padding: 2px 16px;
+}
+</style>
+
+<!--  Start:: Designer-->
+<div class="row">
+    {% for post in posts %}
+    <div class="row">
+        <div class="col-3 m-5" >
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/media/{{ post.image }}" width="600px" height="300px" alt="Card image cap">
+                <div class="card-body" >
+                    <h5 class="card-title">
+                        {% if not designer.full_name %}
+                        {{ post.author.username }}
+                        {% else %}
+                        {{ post.full_name }}
+                        {% endif %}
+                    </h5>
+                    <p class="card-text" style="height: 90px">{{ post.description|truncatewords:5 }}</p>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    </div>
+                    <a href="#" class="like"><i  class="fa fa-thumbs-up"> Like</i></a>
+                    <small class="text-muted">{{ post.upload_date}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="container"><h3 align="center">NO POST FOUND</h3></div>
+    {% endfor %}
+
+</div>
+<!--  End:: Designers-->
+
+{% endblock %}

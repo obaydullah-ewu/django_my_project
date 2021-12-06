@@ -39,23 +39,23 @@ img {
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{% url 'App_Login:users' %}">
+            <a href="">
                 <div class="card" style="height: 150px">
                     <div class="card-body" >
                         <h5 class="card-title"><i class="fas fa-users"> </i><br>Total Customer</h5>
                         <h2 class="text-right">
-                            {{  users.count }}
+                            {{  customers_count.count }}
                         </h2>
                     </div>
                 </div>
             </a>
         </div>
         <div class="col-sm-4">
-            <a href="{% url 'App_Dashboard:designer_info' %}">
+            <a href="{% url 'App_Login:users' %}">
                 <div class="card" style="height: 150px">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-users"></i><br>Total Designer</h5>
-                        <h2 class="text-right">{{  designers.count }}</h2>
+                        <h2 class="text-right">{{  designers_count.count }}</h2>
                     </div>
                 </div>
             </a>
@@ -63,29 +63,36 @@ img {
 
     </div>
 </div>
-    <!--  Start:: Designer-->
-    <div class="row mt-5" style="background-color: #0a4275">
+<!--  Start:: Designer-->
+<div class="row mt-5" style="background-color: #0a4275">
 <!--        <div class="container">-->
-            {% for designer in designers %}
-            <div class="row">
+        {% for designer in designers %}
+        <div class="row">
 
-                <div class="col-3 m-5" >
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="/media/{{ designer.image }}" width="150px" height="300px" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ designer.name }}</h5>
-                            <p class="card-text">{{ designer.email }}</p>
-                            <p class="card-text">{{ designer.contact }}</p>
-                            <a href="{% url 'App_Dashboard:view_designer' designer_id=designer.id %}" class="btn btn-primary">Go for Details</a>
-                        </div>
+            <div class="col-3 m-5" >
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="/media/{{ designer.profile_pic }}" width="150px" height="300px" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            {% if not designer.full_name %}
+                                {{ designer.user.username }}
+                            {% else %}
+                                {{ designer.full_name }}
+                            {% endif %}
+                        </h5>
+                        <p class="card-text">{{ designer.user.email }}</p>
+                        <p class="card-text">{{ designer.contact }}</p>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><br>
+                        <a href="{% url 'App_Dashboard:view_designer' designer_id=designer.id %}" class="btn btn-primary">Go for Details</a>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
 <!--        </div>-->
 
-    </div>
-    <!--  End:: Designers-->
+</div>
+<!--  End:: Designers-->
 
 <div class="mt-5">
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -124,37 +131,53 @@ img {
         </a>
     </div>
 </div>
+
+<!--Start:: About Us-->
+<div class="container marketing mt-5" >
+    <h3 align="center" class="mb-5" style="color: Blue">About US</h3>
+    <div class="row">
+        {% for about in aboutus %}
+        <div class="col-lg-4">
+            <img class="rounded-circle" src="/media/{{ about.image }}" alt="Generic placeholder image" width="140" height="140">
+            <h2>{{ about.name}}</h2>
+            <p>{{ about.email }}</p>
+            <p>{{ about.designation }}</p>
+            <p>{{ about.company_name }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
 <!--Start:: Contact Us-->
-<div class="container contact-form mb-5 mt-5" id="contact-form">
+<div class="container contact-form mb-5 " id="contact-form">
     <div class="contact-image">
         <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
     </div>
-    <form method="post">
+    <form action="{% url 'App_Dashboard:contact_us' %}" method="post">
+        {% csrf_token %}
         <h3>Drop Us a Message</h3>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <input type="text" name="txtName" class="form-control" placeholder="Your Name *" value="" />
+                    <input type="text" name="name" class="form-control" placeholder="Your Name *" value="" required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="txtEmail" class="form-control" placeholder="Your Email *" value="" />
+                    <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" required/>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="txtPhone" class="form-control" placeholder="Your Phone Number *" value="" />
+                    <input type="text" name="contact" class="form-control" placeholder="Your Phone Number *" value="" required/>
                 </div>
                 <div class="form-group">
-                    <input type="submit" name="btnSubmit" class="btnContact" value="Send Message" />
+                    <input type="submit" name="submit" class="btnContact" value="Send Message" />
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <textarea name="txtMsg" class="form-control" placeholder="Your Message *" style="width: 100%; height: 150px;"></textarea>
+                    <textarea name="message" class="form-control" placeholder="Your Message *" required style="width: 100%; height: 150px;"></textarea>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <!--End:: Contact Us-->
-
-
 {% endblock %}

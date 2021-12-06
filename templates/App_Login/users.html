@@ -8,37 +8,72 @@
 
 {% block body_block %}
 {% load crispy_forms_tags %}
-<div class="container">
-    <table class="table table-hover">
-        <thead>
-        <tr><th colspan="5" class="text-center"><h3>User List</h3></th></tr>
-        <tr>
-            <th>SL.</th>
-            <th>Image</th>
-            <th>Username</th>
-            <th>Full Name</th>
-            <th>Date of Birth</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for user_one in users %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>
-                {% if user_one.user_profile.profile_pic %}
-                <img src="/media/{{ user.user_profile.profile_pic }}" width="100px" height="100px" class="rounded-circle" alt="">
-                {% else %}
-                <img src="/media/default.jpg" width="100px" height="100px" class="rounded-circle" alt="">
-                {% endif %}
-            </td>
-            <td>{{ user_one.username }} </td>
-            <td>{{ user_one.user_profile.full_name }}</td>
-            <td>{{ user_one.user_profile.dob }}</td>
+<!--  Start:: Designer-->
+<div class="row" style="background-color: #d1f5bf">
+    <!--        <div class="container">-->
+    {% for designer in users %}
+    <div class="row">
 
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="col-3 m-5" >
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/media/{{ designer.profile_pic }}" width="150px" height="300px" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if not designer.full_name %}
+                        {{ designer.user.username }}
+                        {% else %}
+                        {{ designer.full_name }}
+                        {% endif %}
+
+                    </h5>
+                    <p class="card-text">{{ designer.user.email }}</p>
+                    <p class="card-text">{{ designer.contact }}</p>
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><br>
+                    <a href="{% url 'App_Dashboard:view_designer' designer_id=designer.id %}" class="btn btn-primary">Go for Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="container"><h3 align="center">NO DESIGNER FOUND</h3></div>
+    {% endfor %}
+    <!--        </div>-->
+
+</div>
+<!--  End:: Designers-->
+<div class="container">
+
+<!--    <table class="table table-hover">-->
+<!--        <thead>-->
+<!--        <tr><th colspan="5" class="text-center"><h3>User List</h3></th></tr>-->
+<!--        <tr>-->
+<!--            <th>SL.</th>-->
+<!--            <th>Image</th>-->
+<!--            <th>Username</th>-->
+<!--            <th>Full Name</th>-->
+<!--            <th>Date of Birth</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--       -->
+<!--        {% for user_one in users %}-->
+<!--        <tr>-->
+<!--            <td>{{ forloop.counter }}</td>-->
+<!--            <td>-->
+<!--                {% if user_one.user_profile.profile_pic %}-->
+<!--                <img src="/media/{{ user.user_profile.profile_pic }}" width="100px" height="100px" class="rounded-circle" alt="">-->
+<!--                {% else %}-->
+<!--                <img src="/media/default.jpg" width="100px" height="100px" class="rounded-circle" alt="">-->
+<!--                {% endif %}-->
+<!--            </td>-->
+<!--            <td>{{ user_one.username }} </td>-->
+<!--            <td>{{ user_one.user_profile.full_name }}</td>-->
+<!--            <td>{{ user_one.user_profile.dob }}</td>-->
+
+<!--        </tr>-->
+<!--        {% endfor %}-->
+<!--        </tbody>-->
+<!--    </table>-->
 </div>
 
 {% endblock %}

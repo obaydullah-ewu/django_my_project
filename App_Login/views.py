@@ -89,7 +89,7 @@ def profile(request):
 
 @login_required
 def users(request):
-    users = User.objects.all()
+    users = UserProfile.objects.filter(type=2)
     print(users)
     diction = {
         'title': 'User List',
