@@ -88,12 +88,14 @@
 <!--                  </div>-->
 <!--              </div>-->
 <!--          </div>-->
+          {% if request.path == '/dashboard/' %}
           <div class="p-2">
               <a class="nav-link dropBtn " style="font-weight: bold;" href="#contact-form"><i class="fas fa-id-card"></i> Contact Us</a>
           </div>
           <div class="p-2">
               <a class="nav-link dropBtn " style="font-weight: bold;" href="#about-us"><i class="fas fa-users"></i> About Us</a>
           </div>
+          {% endif %}
 <!--          <div class="p-2 ml-auto">-->
 <!--              -->
 <!--          </div>-->
@@ -178,7 +180,10 @@
     <div class="" style="padding-top: 30px;">
         <div class="row">
             <div class="col">
-                {% include 'messages.html' %}
+                <div class="container text-center " style="font-weight: bold">
+                    {% include 'messages.html' %}
+                </div>
+
             </div>
         </div>
         {% block body_block %}
