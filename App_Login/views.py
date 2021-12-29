@@ -1,9 +1,12 @@
+import os
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, HttpResponseRedirect
+from django.template.context_processors import media
 
 from App_Dashboard.forms import PostForm
 from App_Dashboard.models import Post
@@ -61,9 +64,23 @@ def edit_profile(request):
 
     current_user = UserProfile.objects.get(user=request.user)
     form = EditProfile(instance=current_user)
-    print(form)
+
     if request.method == 'POST':
         form = EditProfile(request.POST, request.FILES, instance=current_user)
+
+        if request.FILES and request.POST.get('profile_pic-clear'):
+            pass
+        else:
+            if request.FILES:
+                if request.user.user_profile.profile_pic:
+                    if os.path.exists(request.user.user_profile.profile_pic.path):
+                        os.remove(request.user.user_profile.profile_pic.path)
+
+            if request.POST.get('profile_pic-clear'):
+                if request.user.user_profile.profile_pic:
+                    if os.path.exists(request.user.user_profile.profile_pic.path):
+                        os.remove(request.user.user_profile.profile_pic.path)
+
         if form.is_valid():
             form.save(commit=True)
             form = EditProfile(instance=current_user)

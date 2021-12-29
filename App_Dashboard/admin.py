@@ -5,7 +5,7 @@ from App_Dashboard.models import Country, DesignerInfo, Post, ContactUs, AboutUs
 
 
 admin.site.register(Country)
-admin.site.register(DesignerInfo)
+# admin.site.register(DesignerInfo)
 admin.site.register(Post)
 admin.site.register(ContactUs)
 admin.site.register(AboutUs)
