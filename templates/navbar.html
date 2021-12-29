@@ -58,7 +58,7 @@
 
 <!--  <div class="container mt-3">-->
       <div class="d-flex mb-3 " style="background-color: #0a4275;">
-          <div class="p-2  "> 
+          <div class="p-2">
               <a class="nav-link dropBtn " style="font-weight: bold; color: Blue" href="{% url 'App_Dashboard:home' %}">
                   <img src="/media/trendyhome.png" alt="" style="height:50px; width: auto">
                   Trendy Homes
@@ -98,7 +98,7 @@
 <!--              -->
 <!--          </div>-->
           <div class="p-2 ml-auto d-flex">
-              {% if user.user_profile %}
+              {% if user.is_authenticated  %}
                   {% if user.user_profile.profile_pic %}
                   <a class="nav-link hide_show" href="{% url 'App_Login:profile' %}">
                       <div class="d-flex-row">
