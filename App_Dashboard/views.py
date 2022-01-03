@@ -14,6 +14,7 @@ from App_Login.models import UserProfile
 # @login_required
 def home(request):
     country_list = Country.objects.all()
+    blog_list = Post.objects.all()
     customers_count = UserProfile.objects.filter(type=1)
     designers_count = UserProfile.objects.filter(type=2)
     designers = UserProfile.objects.filter(type=2)
@@ -24,7 +25,8 @@ def home(request):
         'customers_count': customers_count,
         'designers_count': designers_count,
         'designers': designers,
-        'aboutus': aboutus
+        'aboutus': aboutus,
+        'blog_list': blog_list
     }
     return render(request, "App_Dashboard/home.html", context=diction)
 

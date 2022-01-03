@@ -52,7 +52,7 @@ class Post(models.Model):
 
 
 class React(models.Model):
-    post = models.IntegerField(max_length=255)
+    post = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='react_user')
 
     def __str__(self):
