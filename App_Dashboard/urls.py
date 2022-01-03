@@ -18,9 +18,16 @@ urlpatterns = [
 
     path('post/', views.post, name='post'),
     path('view_posts/', views.view_posts, name='view_posts'),
+    path('view_post/<int:post_id>/', views.view_post, name='view_post'),
+    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
+    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
 
     path('like_post/<int:post_id>/', views.like_post, name='like_post'),
     path('unlike_post/<int:post_id>/', views.unlike_post, name='unlike_post'),
+
+    path('reply/', views.reply, name='reply'),
+    path('desginerMessage/', views.desginerMessage, name='desginerMessage'),
+    path('myMessageList/', views.myMessageList, name='myMessageList'),
 
     path('contact_us/', views.contactUs, name='contact_us'),
     path('about_us/', views.aboutUs, name='about_us')

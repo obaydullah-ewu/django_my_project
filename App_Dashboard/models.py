@@ -48,11 +48,11 @@ class Post(models.Model):
         ordering = ['-upload_date',]
 
     def __str__(self):
-        return self.author.username
+        return self.description
 
 
 class React(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='react_post')
+    post = models.IntegerField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='react_user')
 
     def __str__(self):
@@ -79,3 +79,21 @@ class AboutUs(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Reply(models.Model):
+    post_id = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reply_user')
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message
+
+
+class DesignerMessage(models.Model):
+    designer_user = models.IntegerField()
+    customer_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_user')
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message

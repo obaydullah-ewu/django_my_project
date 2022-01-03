@@ -52,6 +52,23 @@
                 <th>Total Post Blog: </th>
                 <td> {{ posts.count }}</td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <form action="{% url 'App_Dashboard:desginerMessage' %}" method="post">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <div>
+                                <input type="hidden" name="designer_id" value="{{ designer.user.id }}">
+                                <input type="text" class="form-control" name="message" placeholder="message me">
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn btn-primary">sent message</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
         </table>
 
     </div>

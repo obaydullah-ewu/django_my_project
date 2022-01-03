@@ -6,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from App_Dashboard import forms
-from App_Dashboard.forms import PostForm
-from App_Dashboard.models import Country, DesignerInfo, Post, AboutUs, ContactUs, React
+from App_Dashboard.forms import PostForm, ReplyFrom
+from App_Dashboard.models import Country, DesignerInfo, Post, AboutUs, ContactUs, React, Reply, DesignerMessage
 from App_Login.models import UserProfile
 
 
@@ -119,7 +119,7 @@ def view_designer(request, designer_id):
         'designer': designer,
         'posts': posts,
     }
-    return render(request, 'App_Dashboard/view_designers.html', context=diction)
+    return render(request, 'App_Dashboard/view_designers.html', context=diction)\
 
 
 @login_required
@@ -146,6 +146,7 @@ def delete_designer(request, designer_id):
     messages.success(request, 'Designer Deleted Successfully')
     return HttpResponseRedirect(reverse('App_Dashboard:designer_info'))
 
+
 @login_required
 def post(request):
     if request.method == 'POST':
@@ -164,11 +165,49 @@ def post(request):
 
 def view_posts(request):
     posts = Post.objects.all()
+    reacts = React.objects.all()
+
     diction = {
         'title': 'Blog Post',
         'posts': posts,
+        'reacts': reacts,
+
     }
     return render(request, 'App_Dashboard/view_posts.html', context=diction)
+
+@login_required
+def view_post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    replies = Reply.objects.filter(post_id=post_id)
+    diction = {
+        'title': 'Post Details',
+        'post': post,
+        'replies': replies
+    }
+    return render(request, 'App_Dashboard/view_post.html', context=diction)
+
+@login_required
+def edit_post(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    form = PostForm(instance=post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+
+        if form.is_valid():
+            form.save(commit=True)
+            messages.info(request, 'Post Updated Successfully')
+            return HttpResponseRedirect(reverse('App_Login:profile'))
+    diction = {
+        'edit_form': form
+    }
+    return render(request, 'App_Dashboard/edit_post.html', context=diction)
+
+@login_required
+def delete_post(request, post_id):
+    Post.objects.get(pk=post_id).delete()
+    messages.success(request, 'Post Deleted Successfully')
+    return HttpResponseRedirect(reverse('App_Login:profile'))
 
 
 def contactUs(request):
@@ -193,20 +232,60 @@ def aboutUs(request):
 
 
 def like_post(request, post_id):
-    react = React.objects.filter(post=post_id, user=request.user)
+    # react = React.objects.filter(post=post_id, user=request.user)
+    # if react.count() < 1:
 
-    if react.count() < 1:
-        data_dict = {
-            'user': request.user,
-            'post': post_id,
-        }
-        React.objects.create(**data_dict)
-        messages.success(request, 'You like the post successfully')
+    data_dict = {
+        'post': post_id,
+        'user': request.user,
+    }
+    React.objects.create(**data_dict)
+    messages.success(request, 'You like the post successfully')
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def unlike_post(request, post_id):
-    react = React.objects.filter(post=post_id, user=request.user).delete()
-    messages.success(request, 'You like the post successfully')
+    react = React.objects.filter(post=post_id, user=request.user)
+    react.delete()
+    messages.success(request, 'You unlike the post successfully')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required
+def reply(request):
+    if request.method == 'POST':
+        data_dict = {
+            'post_id': request.POST['post_id'],
+            'user': request.user,
+            'message': request.POST['message']
+        }
+
+        Reply.objects.create(**data_dict)
+        messages.success(request, 'You replied successfully')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def desginerMessage(request):
+    if request.method == 'POST':
+        data_dict = {
+            'designer_user': request.POST['designer_id'],
+            'customer_user': request.user,
+            'message': request.POST['message']
+        }
+
+        DesignerMessage.objects.create(**data_dict)
+        messages.success(request, 'Messeage sent successfully')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def myMessageList(request):
+    mymessages = DesignerMessage.objects.filter(designer_user=request.user.id)
+    print(messages)
+    diction = {
+        'title': 'Messages',
+        'mymessages': mymessages
+    }
+    return render(request, 'App_Dashboard/messages.html', context=diction)

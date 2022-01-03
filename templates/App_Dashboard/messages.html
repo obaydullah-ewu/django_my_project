@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title_block %} {{ title }} {% endblock %}
+
+{% block css_block %}
+
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr><th colspan="8" class="text-center"><h3>Messages</h3></th></tr>
+        <tr>
+            <th>SL.</th>
+            <th>Message From</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for msg in mymessages %}
+        <tr>
+            <td>{{ forloop.counter }} </td>
+
+            <td>
+                {% if msg.customer_user.user_profile.profile_pic %}
+                <img src="/media/{{ msg.customer_user.user_profile.profile_pic }}" width="50px" height="50px" class="rounded-circle mr-1" alt="">{{ msg.customer_user.username }}</td>
+
+                {% else %}
+                <img src="/media/default.jpg" width="50px" height="50px" class="rounded-circle mr-1" alt="">{{ msg.customer_user.username }}
+                {% endif %}
+
+            <td>{{ msg.message }}</td>
+
+        </tr>
+        {% empty %}
+        <tr><td colspan="9"><h3 align="center">NO RECORD FOUND</h3></td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
