@@ -12,11 +12,25 @@
         <tr><th colspan="8" class="text-center"><h3>Messages</h3></th></tr>
         <tr>
             <th>SL.</th>
-            <th>Message From</th>
+            <th>
+                {% if request.user.user_profile.type == 2 %}
+                    Message From
+                {% else %}
+                    Message To
+                {% endif %}
+            </th>
+
             <th>Message</th>
-            <th>Your Reply</th>
+            <th>
+                {% if request.user.user_profile.type == 2 %}
+                    Your Reply
+                {% else %}
+                    Designer Reply
+                {% endif %}
+            </th>
         </tr>
         </thead>
+        {% if request.user.user_profile.type == 2 %}
         <tbody>
         {% for msg in mymessages %}
         <tr>
@@ -44,6 +58,31 @@
         <tr><td colspan="9"><h3 align="center">NO RECORD FOUND</h3></td></tr>
         {% endfor %}
         </tbody>
+        {% else %}
+
+        <tbody>
+        {% for msg in customerMessages %}
+        <tr>
+            <td>{{ forloop.counter }} </td>
+
+            <td>
+                {% for user in users %}
+                    {% if user.id == msg.designer_user %}
+                        {{ user.username }}
+                    {% endif %}
+                {% endfor %}
+            </td>
+
+            <td>{{ msg.message }}</td>
+            <td>{{ msg.reply_message }}
+            </td>
+
+        </tr>
+        {% empty %}
+        <tr><td colspan="9"><h3 align="center">NO RECORD FOUND</h3></td></tr>
+        {% endfor %}
+        </tbody>
+        {% endif %}
     </table>
 </div>
 

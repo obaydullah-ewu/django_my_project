@@ -286,10 +286,14 @@ def desginerMessage(request):
 
 def myMessageList(request):
     mymessages = DesignerMessage.objects.filter(designer_user=request.user.id)
+    customerMessages = DesignerMessage.objects.filter(customer_user=request.user.id)
+    users = User.objects.all()
     print(messages)
     diction = {
         'title': 'Messages',
-        'mymessages': mymessages
+        'mymessages': mymessages,
+        'customerMessages': customerMessages,
+        'users': users
     }
     return render(request, 'App_Dashboard/messages.html', context=diction)
 
