@@ -46,19 +46,6 @@ img {
                     <div class="btn-group">
                         <a href="{% url 'App_Dashboard:view_post' post_id=post.id %}" class="btn btn-sm btn-outline-secondary"><i  class="fa fa-eye"> View</i></a>
                     </div>
-                    {% for react in reacts %}
-                        {% if post.author.id == request.user.id %}
-
-                        {% endif %}
-                    {% empty %}
-
-                    {% endfor %}
-
-<!--                    {% if reactcheck == 1%}-->
-<!--                        <a href="{% url 'App_Dashboard:unlike_post' post_id=post.id %}" class="like"><i  class="fa fa-thumbs-down"> Unlike</i></a>-->
-<!--                    {% else %}-->
-<!--                        <a href="{% url 'App_Dashboard:like_post' post_id=post.id %}" class="like"><i  class="fa fa-thumbs-up"> Like</i></a>-->
-<!--                    {% endif %}-->
 
 
                     <small class="text-muted">{{ post.upload_date}}</small>

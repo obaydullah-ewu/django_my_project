@@ -14,6 +14,7 @@
             <th>SL.</th>
             <th>Message From</th>
             <th>Message</th>
+            <th>Your Reply</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +31,13 @@
                 {% endif %}
 
             <td>{{ msg.message }}</td>
+            <td>{{ msg.reply_message }}<a href="{% url 'App_Dashboard:messageReply' message_id=msg.id %}">
+                {% if msg.reply_message %}
+                Edit your reply
+                {% else %}
+                Send your reply
+                {% endif %}
+            </a></td>
 
         </tr>
         {% empty %}

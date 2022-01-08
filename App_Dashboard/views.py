@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
 from App_Dashboard import forms
-from App_Dashboard.forms import PostForm, ReplyFrom
+from App_Dashboard.forms import PostForm, ReplyFrom, DesignerMessageFrom
 from App_Dashboard.models import Country, DesignerInfo, Post, AboutUs, ContactUs, React, Reply, DesignerMessage
 from App_Login.models import UserProfile
 
@@ -181,10 +181,15 @@ def view_posts(request):
 def view_post(request, post_id):
     post = Post.objects.get(pk=post_id)
     replies = Reply.objects.filter(post_id=post_id)
+    reacts = React.objects.filter(post=post_id, user=request.user)
+    total_reacts = React.objects.filter(post=post_id)
+
     diction = {
         'title': 'Post Details',
         'post': post,
-        'replies': replies
+        'replies': replies,
+        'reacts': reacts,
+        'total_reacts': total_reacts
     }
     return render(request, 'App_Dashboard/view_post.html', context=diction)
 
@@ -204,6 +209,7 @@ def edit_post(request, post_id):
         'edit_form': form
     }
     return render(request, 'App_Dashboard/edit_post.html', context=diction)
+
 
 @login_required
 def delete_post(request, post_id):
@@ -233,24 +239,19 @@ def aboutUs(request):
     aboutus = AboutUs.objects.all()
 
 
-def like_post(request, post_id):
-    # react = React.objects.filter(post=post_id, user=request.user)
-    # if react.count() < 1:
-
-    data_dict = {
-        'post': post_id,
-        'user': request.user,
-    }
-    React.objects.create(**data_dict)
-    messages.success(request, 'You like the post successfully')
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-
-def unlike_post(request, post_id):
+def react_post(request, post_id):
     react = React.objects.filter(post=post_id, user=request.user)
-    react.delete()
-    messages.success(request, 'You unlike the post successfully')
+    if react:
+        react.delete()
+        messages.error(request, 'You unlike the post successfully')
+    else:
+        data_dict = {
+            'post': post_id,
+            'user': request.user,
+        }
+        React.objects.create(**data_dict)
+        messages.success(request, 'You like the post successfully')
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -264,7 +265,7 @@ def reply(request):
         }
 
         Reply.objects.create(**data_dict)
-        messages.success(request, 'You replied successfully')
+        messages.success(request, 'You comment replied successfully')
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -291,3 +292,20 @@ def myMessageList(request):
         'mymessages': mymessages
     }
     return render(request, 'App_Dashboard/messages.html', context=diction)
+
+
+def designerMessageReply(request, message_id):
+    message = DesignerMessage.objects.get(pk=message_id)
+    editReplyFrom = DesignerMessageFrom(instance=message)
+
+    if request.method == 'POST':
+        form = DesignerMessageFrom(request.POST, 'request.FILES', instance=message)
+        if form.is_valid():
+            form.save(commit=True)
+            messages.info(request, 'Message replied Successfully')
+            return HttpResponseRedirect(reverse('App_Dashboard:myMessageList'))
+    diction = {
+        'editReplyFrom': editReplyFrom
+    }
+
+    return render(request, 'App_Dashboard/reply_message.html', context=diction)

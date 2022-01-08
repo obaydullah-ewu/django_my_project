@@ -55,8 +55,6 @@ class React(models.Model):
     post = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='react_user')
 
-    def __str__(self):
-        return self.post.description
 
 
 class ContactUs(models.Model):
@@ -94,6 +92,7 @@ class DesignerMessage(models.Model):
     designer_user = models.IntegerField()
     customer_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_user')
     message = models.TextField()
+    reply_message = models.TextField()
 
     def __str__(self):
         return self.message

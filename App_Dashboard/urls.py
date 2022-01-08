@@ -22,11 +22,12 @@ urlpatterns = [
     path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
 
-    path('like_post/<int:post_id>/', views.like_post, name='like_post'),
-    path('unlike_post/<int:post_id>/', views.unlike_post, name='unlike_post'),
+
+    path('react_post/<int:post_id>/', views.react_post, name='react_post'),
 
     path('reply/', views.reply, name='reply'),
     path('desginerMessage/', views.desginerMessage, name='desginerMessage'),
+    path('messageReply/<int:message_id>', views.designerMessageReply, name='messageReply'),
     path('myMessageList/', views.myMessageList, name='myMessageList'),
 
     path('contact_us/', views.contactUs, name='contact_us'),
